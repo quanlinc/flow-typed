@@ -4,10 +4,16 @@ declare module "redux-oidc" {
    * S = State
    * A = Action
    * D = Dispatch
-   */
+   *
+   * Below type definitions are copied from redux_v4.x.x.js
+   * The issue is that flow will silenty cast cross referenced types to any, end up losing type information
+   * except for those builtin ones.
+   * ticket discussing this issue https://github.com/flow-typed/flow-typed/issues/1857
+   * also mentioned here not to do it! https://github.com/flow-typed/flow-typed/blob/master/CONTRIBUTING.md#dont-import-types-from-other-libdefs
+   */ 
   declare type DispatchAPI<A> = (action: A) => A;
 
-  declare type Dispatch<A: { type: * }> = DispatchAPI<A>;
+  declare type Dispatch<A: { type: *, ... }> = DispatchAPI<A>;
 
   declare type Reducer<S, A> = (state: S | void, action: A) => S;
 
@@ -17,7 +23,10 @@ declare module "redux-oidc" {
     getState(): S,
     subscribe(listener: () => void): () => void,
     replaceReducer(nextReducer: Reducer<S, A>): void,
+    ...
   };
+  // end of copied types
+  
   declare type UserManager = {
     getUser: () => Promise<User<*>>,
     removeUser: () => Promise<*>,
