@@ -825,24 +825,36 @@ const str: string = "hello world";
   }))([1, 2, 3])(["1", "2", "3"]);
 
   describe('uniq', () => {
+    const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
     it('should accept read only array', () => {
-      const readOnlyNumbers: $ReadOnlyArray<number> = Object.freeze([1,1,2,3,4,3]);
       const result:$ReadOnlyArray<number> = uniq(readOnlyNumbers);
     });
 
-    it('should accept mutable array', () => {
-      const arr: Array<string> = ['1', '2', '3']
-      const result: Array<string> = uniq(arr)
+    it('should fail when element type mismatches', () => {
+      //$ExpectError
+      const result:$ReadOnlyArray<string> = uniq(readOnlyNumbers);
+
+      //$ExpectError
+      const result: Array<string> = uniq(readOnlyNumbers);
     });
 
-    it('should throw error for not read only input', () => {
-      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
+    it('should accept mutable array', () => {
+      const arr: Array<string> = ['1', '2', '3'];
+      const result: Array<string> = uniq(arr);
+    });
+
+    it('should fail for a mixed element type array', () => {
+      const mix = ['1', 2, true];
+      //$ExpectError
+      const result: $ReadOnlyArray<string> = uniq(mix);
+    });
+
+    it('should throw error for not read only output', () => {
       // $ExpectError
       const result: Array<number> = uniq(readOnlyNumbers);
     });
 
     //Reason not to test the other way around, namely, Array<A> to $ReadOnlyArray<A> is because
     //$ReadOnlyArray is a supertype of Array https://flow.org/en/docs/types/arrays/#toc-readonlyarray
-
   })
 }
