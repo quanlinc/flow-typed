@@ -3,8 +3,7 @@ declare module "redux-oidc" {
    * S = State
    * A = Action
    * D = Dispatch
-   */
-  /**
+   *
    * Below type definitions are copied from redux_v4.x.x.js
    * The issue is that flow will silenty cast cross referenced types to any, end up losing type information
    * except for those builtin ones.
