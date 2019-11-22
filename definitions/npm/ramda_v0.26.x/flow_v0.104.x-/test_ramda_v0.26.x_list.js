@@ -825,12 +825,13 @@ const str: string = "hello world";
   }))([1, 2, 3])(["1", "2", "3"]);
 
   describe('uniq', () => {
-    const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
     it('should accept read only array', () => {
+      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
       const result:$ReadOnlyArray<number> = uniq(readOnlyNumbers);
     });
 
     it('should fail when element type mismatches', () => {
+      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
       //$ExpectError
       const result:$ReadOnlyArray<string> = uniq(readOnlyNumbers);
 
@@ -849,7 +850,8 @@ const str: string = "hello world";
       const result: $ReadOnlyArray<string> = uniq(mix);
     });
 
-    it('should throw error for not read only output', () => {
+    it('should fail for not read only output', () => {
+      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
       // $ExpectError
       const result: Array<number> = uniq(readOnlyNumbers);
     });
