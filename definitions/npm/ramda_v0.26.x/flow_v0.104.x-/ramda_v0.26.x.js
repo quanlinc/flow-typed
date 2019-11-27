@@ -1172,7 +1172,7 @@ declare module ramda {
 
   declare function transpose<T>(xs: Array<Array<T>>): Array<Array<T>>;
 
-  declare function uniq<A, As: $ReadOnlyArray<A>>(As): As;
+  declare function uniq<T>(xs: $ReadOnlyArray<T>): Array<T>;
 
   declare function unnest<T>(xs: NestedArray<T>): NestedArray<T>;
 

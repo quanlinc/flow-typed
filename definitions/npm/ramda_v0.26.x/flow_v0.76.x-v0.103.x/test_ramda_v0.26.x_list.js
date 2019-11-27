@@ -714,9 +714,11 @@ const str: string = "hello world";
       const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
       //$ExpectError
       const result:$ReadOnlyArray<string> = uniq(readOnlyNumbers);
+    });
 
-      //$ExpectError
-      const result: Array<string> = uniq(readOnlyNumbers);
+    it('should accept read only array when expecting mutable array as output', () => {
+      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
+      const result: Array<number> = uniq(readOnlyNumbers);
     });
 
     it('should accept mutable array', () => {
@@ -728,12 +730,6 @@ const str: string = "hello world";
       const mix = ['1', 2, true];
       //$ExpectError
       const result: $ReadOnlyArray<string> = uniq(mix);
-    });
-
-    it('should fail for not read only output', () => {
-      const readOnlyNumbers: $ReadOnlyArray<number> = [1,1,2,3,4,3];
-      // $ExpectError
-      const result: Array<number> = uniq(readOnlyNumbers);
     });
 
     //Reason not to test the other way around, namely, Array<A> to $ReadOnlyArray<A> is because
