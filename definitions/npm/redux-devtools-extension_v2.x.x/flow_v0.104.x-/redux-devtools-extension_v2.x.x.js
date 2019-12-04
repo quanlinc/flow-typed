@@ -1,5 +1,37 @@
-import type { ActionCreator, StoreEnhancer } from 'redux';
-import typeof { compose } from 'redux';
+// Following type definitions are copied from redux_v4 plus inexact type addition to satisfy tests
+// start
+declare type DispatchAPI<A> = (action: A) => A;
+
+declare type Dispatch<A: { type: *, ... }> = DispatchAPI<A>;
+
+declare type Store<S, A, D = Dispatch<A>> = {
+  // rewrite MiddlewareAPI members in order to get nicer error messages (intersections produce long messages)
+  dispatch: D,
+  getState(): S,
+  subscribe(listener: () => void): () => void,
+  replaceReducer(nextReducer: Reducer<S, A>): void,
+  ...
+};
+
+declare type Reducer<S, A> = (state: S | void, action: A) => S;
+
+declare type ActionCreator<A, B> = (...args: Array<B>) => A;
+
+declare type StoreCreator<S, A, D = Dispatch<A>> = {
+  (reducer: Reducer<S, A>, enhancer?: StoreEnhancer<S, A, D>): Store<S, A, D>,
+  (
+    reducer: Reducer<S, A>,
+    preloadedState: S,
+    enhancer?: StoreEnhancer<S, A, D>
+  ): Store<S, A, D>,
+  ...
+};
+declare type StoreEnhancer<S, A, D = Dispatch<A>> = (
+   next: StoreCreator<S, A, D>
+ ) => StoreCreator<S, A, D>;
+// end
+
+declare type ReduxCompose = $Compose;
 
 declare type $npm$ReduxDevtoolsExtension$DevToolsOptions = {
   name?: string,
@@ -94,7 +126,7 @@ declare function $npm$ReduxDevtoolsExtension$composeWithDevTools<A, B, C, D, E, 
   cd: C => D,
   bc: B => C,
   ab: A => B
-): A => H;
+): A => I;
 
 declare function $npm$ReduxDevtoolsExtension$devToolsEnhancer<S, A>(options?: $npm$ReduxDevtoolsExtension$DevToolsOptions): StoreEnhancer<S, A>;
 
