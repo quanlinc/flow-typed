@@ -66,8 +66,8 @@ const options5: OptionsLogProd = {
 (compose: typeof composeLog);
 (compose: typeof composeLogProd);
 
-(compose(options1): Function);
-(compose(options1): * => Function);
+(compose(options1): $Compose);
+(compose(options1): () => mixed);
 (compose((x: number): boolean => x === 0): number => boolean);
 (compose((b: boolean): Array<number> => b?[0]:[], (x: number): boolean => x === 0): number => Array<number>);
 // $ExpectError

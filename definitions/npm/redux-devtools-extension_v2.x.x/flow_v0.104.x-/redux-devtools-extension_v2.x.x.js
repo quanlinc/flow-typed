@@ -76,8 +76,9 @@ declare type $npm$ReduxDevtoolsExtension$DevToolsOptions = {
   ...
 };
 
+declare function $npm$ReduxDevtoolsExtension$composeWithDevTools<A, B>(options: $npm$ReduxDevtoolsExtension$DevToolsOptions| A): B & $Compose;
 declare function $npm$ReduxDevtoolsExtension$composeWithDevTools<A, B>(ab: A => B): A => B;
-declare function $npm$ReduxDevtoolsExtension$composeWithDevTools(options: $npm$ReduxDevtoolsExtension$DevToolsOptions): compose;
+
 declare function $npm$ReduxDevtoolsExtension$composeWithDevTools<A, B, C>(
   bc: B => C,
   ab: A => B
